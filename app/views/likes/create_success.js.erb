@@ -1,0 +1,5 @@
+<% if @post.liked_by?(current_user) %>
+  <%= link_to "Unlike", post_like_path(@post, @post.like_for(current_user)), method: :delete, data: {disable_with: "..."} %><br>
+<% else %>
+  <%= link_to "Like", post_likes_path(@post), method: :post %>
+<% end %>

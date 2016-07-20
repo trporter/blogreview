@@ -1,0 +1,25 @@
+<h1>Welcome to the Blog</h1>
+
+<div>
+  <% @posts.each do |post| %>
+    Votes: <%= post.vote_sum %>
+    <%= link_to post.title, post_path(post) %>
+    <button>Show</button>
+    <div>
+      <p><%= post.body %></p>
+      By: <%= post.user.full_name %><br>
+      <%= render "votes/vote", post: post %>
+    </div>
+    <hr>
+  <% end %>
+</div>
+<script>
+$(document).ready(function() {
+  $('div div').hide();
+  $('button').each(function(){
+    $(this).on('click', function(){
+      $(this).next().slideToggle();
+    })
+  })
+});
+</script>

@@ -1,6 +1,38 @@
 Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
+  resources :sessions, only: [:new, :create] do
+    delete :destroy, on: :collection
+  end
+
+  resources :users
+
+  resources :posts do
+    resources :votes, only: [:create, :update, :destroy]
+    # delete :destroy, on: :collection
+    resources :likes
+
+    get :search, on: :collection
+
+    resources :comments, only: [:create, :destroy]
+
+
+  end
+
+  resources :likes, only: [:index]
+
+  get "/auth/twitter", as: :sign_in_with_twitter
+  get "/auth/twitter/callback" => "callbacks#twitter"
+
+  # devise_for :users, :skip => [:registrations]
+  # as :user do
+  #   get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
+  #   put 'users' => 'devise/registrations#update', :as => 'user_registration'
+  # end
+
+#get ({'/'       => 'home#index'})
+  root 'home#index'
+  get "/about" => "home#about"
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'

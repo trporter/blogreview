@@ -1,0 +1,14 @@
+<!-- finish the other scenarios, in the untitled folder -->
+<% if post.voted_up_by?(current_user) %>
+  <%= link_to "Undo vote Up", post_votes_path(post, {vote: {is_up: true}}), remote: true, method: :delete %>
+  (<%= post.vote_sum %>)
+  <%= link_to "Vote Down", post_vote_path(post, post.votes.find_by_user_id(current_user.id), {vote: {is_up: false}}), method: :patch, remote: true %><br>
+<% elsif post.voted_down_by?(current_user)%>
+  <%= link_to "Vote Up", post_vote_path( post, post.votes.find_by_user_id(current_user.id), {vote: {is_up: true}}), method: :patch, remote: true %>
+  (<%= post.vote_sum %>)
+  <%= link_to "Undo vote down", post_vote_path(post, post.votes.find_by_user_id(current_user.id), {vote: {is_up: false}} ), method: :delete, remote: true, data: {disable_with: "..."} %><br>
+<% else %>
+  <%= link_to "Vote Up", post_votes_path(post, vote: {is_up: true}), method: :post, remote: true %>
+  (<%= post.vote_sum %>)
+  <%= link_to "Vote Down", post_votes_path(post, {vote: {is_up: false}}), method: :post, remote: true %><br>
+<% end %>
