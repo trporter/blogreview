@@ -1,0 +1,27 @@
+<h1><%= @post.title %></h1>
+Created By: <%= @post.user.full_name%>
+<hr>
+<p><%= @post.body %></h4><br>
+<h4><%= @post.category[:title] %></p>
+
+<%= link_to "Edit", edit_post_path(@post) %>
+<%= link_to "Delete", post_path(@post), method: :delete, data: {confirm: "Are you sure?"} %>
+
+<div id="likes">
+  <%= render "likes/like" %>
+</div>
+
+<div id="votes">
+  <%= render "votes/vote", post: @post %>
+</div>
+
+<div id="comment-form">
+  <%= render "comments/form" %>
+</div>
+
+<h2>Comments</h2>
+<div id="comments">
+  <% @post.comments_new_first.each do |com| %>
+    <%= render "comments/comment", comment: com %>
+  <% end %>
+</div>

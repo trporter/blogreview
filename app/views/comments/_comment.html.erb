@@ -1,0 +1,5 @@
+<div id="<%= dom_id(comment) %>">
+  <%= comment.body %>
+  <%= link_to "Delete" , post_comment_path(@post, comment), method: :delete, remote: true, data:{confirm: "Are you sure?"} %>
+  <hr>
+</div>

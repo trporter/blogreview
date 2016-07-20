@@ -2,11 +2,32 @@
 <html>
 <head>
   <title>Blog</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <%= link_to("About", about_path) %>
+  |
+  <%= link_to("New Post", new_post_path) %>
+  |
+  <%= link_to("Post History", posts_path) %>
+  |
+  <% if user_signed_in? %>
+    Hello <%= current_user.first_name %>,
+    <%= link_to "Liked Posts", likes_path %>
+    |
+    <%= link_to "Logout", sessions_path, method: :delete, data: {confirm: "are you sure you want to log out?"}%>
+    |
+    <%= link_to "Account Settings", edit_user_path(current_user)%>
+  <% else %>
+    <%= link_to "Login", new_session_path %>
+    |
+    <%= link_to "Sign Up", new_user_path %>
+    |
+    <%= link_to "Sign in with Twitter", sign_in_with_twitter_path %>
+  <% end %>
+  <hr>
 
 <%= yield %>
 

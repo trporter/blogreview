@@ -1,0 +1,36 @@
+<h1><%= @product.title.titleize %></h1>
+<p><%= @product.description %></p>
+<p>$<%= @product.price %></p>
+<%= link_to "Edit", edit_product_path(@product) %>
+<%= link_to "Delete", product_path(@product),
+                      method: :delete,
+                      data:   {confirm: "Are you sure?"} %>
+
+
+<h2> create a review </h2>
+<%= @review.errors.full_messages.join (",") %>
+<%= form_for [@product, @review] do |f| %>
+<div>
+Star Rating:<%= f.text_field :star_count %>
+</div>
+<div>
+Your Review:<%= f.text_area :body %>
+</div>
+
+<div>
+<%= f.submit %>
+</div>
+<% end %>
+
+<h2> The Reviews </h2>
+
+<% @product.reviews.all.each do |rev| %>
+star rating: <%= rev.star_count %><br>
+review: <%= rev.body %><br>
+<%= link_to "Delete", product_review_path(@product, rev),
+                    method: :delete,
+                    data: {confirm: "are you sure?"} %><hr>
+
+
+<% end %>
+<#% this is some great code %>

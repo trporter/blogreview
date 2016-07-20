@@ -1,0 +1,22 @@
+<%= @post.errors.full_messages.join(", ") %>
+<%= form_for @post do |f| %>
+  <div>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div>
+    <%= f.label :body %><br>
+    <%= f.text_area :body %>
+  </div>
+  <div>
+    Category<br>
+    <%= f.collection_select :category_id, Category.all, :id, :title %>
+  </div>
+  <div>
+    <% if current_user.using_twitter? && !@post.persisted? %>
+    <%= f.label :tweet_it %>
+    <%= f.input :tweet_it, as: :boolean %>
+    <% end %>
+  </div>
+    <%= f.submit %>
+<% end %>

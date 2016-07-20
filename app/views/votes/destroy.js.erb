@@ -1,0 +1,5 @@
+<% if @vote %>
+  $("#votes").html("<%= j render '/votes/vote', post: current_post, current_user_vote @vote %>");
+<% else %>
+  alert("error removing vote, refresh page");
+<% end %>

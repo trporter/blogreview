@@ -1,0 +1,7 @@
+<h1>Posts you liked</h1>
+
+<% @posts.each do |post| %>
+  <%#= link_to question.title, question_path(question) %>
+  <%= link_to post.title, post %>
+  <hr>
+<% end %>
